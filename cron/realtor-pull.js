@@ -3,33 +3,14 @@
 const realtor = require('realtorca');
 const { sortBy, postalCodesArray } = require('./util')
 
-const nord = {
-  ZoomLevel: 9,
-  LatitudeMax: 46.14939,
-  LongitudeMax: -73.27967,
-  LatitudeMin: 45.38302,
-  LongitudeMin: -75.87336,
-  Sort: '1-D',
-  PropertyTypeGroupID: 1,
-  PropertySearchTypeId: 1,
-  TransactionTypeId: 2,
-  PriceMax: 400000,
-  BedRange: '4-0',
-  BathRange: '1-0',
-  Currency: 'CAD',
-  CultureId: 1,
-  CurrentPage: 1,
-  RecordsPerPage: 200,
-}
-
 module.exports = function makeRealtorPull() {
-  return async function realtorPull() {
+  return async function realtorPull(opts, type) {
     try {
       let entriesPerPage = 200
       const propertyResults = []
 
-      for (let i = 1; entriesPerPage === nord.RecordsPerPage; i++) {
-        const { Results } = await realtor.post({ ...nord, CurrentPage: i })
+      for (let i = 1; entriesPerPage === opts.RecordsPerPage; i++) {
+        const { Results } = await realtor.post({ ...opts, CurrentPage: i })
         propertyResults.push(...Results)
         entriesPerPage = Results.length
       }
@@ -80,7 +61,7 @@ module.exports = function makeRealtorPull() {
 
       // const type = 'ID'
       // const type = 'price'
-      const type = 'landSize'
+      // const type = 'landSize'
 
       const sortedPropertyArray = sortBy({
         type: type,

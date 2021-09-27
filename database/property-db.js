@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 
 module.exports = function makePropertyModel(sequelize) {
   const Property = sequelize.define('property', {
-    // Model attributes are defined here
     mls_id: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     },
     city: {
       type: DataTypes.STRING,
@@ -35,7 +35,8 @@ module.exports = function makePropertyModel(sequelize) {
       defaultValue: false,
     }
   }, {
-    // Options
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
   })
 
 
@@ -51,7 +52,7 @@ module.exports = function makePropertyModel(sequelize) {
     const result = await Property.findAll({
       where: query
     })
-    return await result.toArray()
+    return result
   }
   async function findById({ propertyId }) {
     if (!propertyId)
@@ -64,11 +65,11 @@ module.exports = function makePropertyModel(sequelize) {
       return false
   }
   async function insert(property) {
+    // TODO
     return await Property.create({
       userId: property.getUserId(),
       author: property.getAuthor(),
       source: property.getSource(),
-      name: property.getName(),
       description: property.getDescription(),
       curated: property.isCurated(),
     })
@@ -81,11 +82,11 @@ module.exports = function makePropertyModel(sequelize) {
     })
   }
   async function update(property) {
+    // TODO
     return await Property.update({
       userId: property.getUserId(),
       author: property.getAuthor(),
       source: property.getSource(),
-      name: property.getName(),
       description: property.getDescription(),
       curated: property.isCurated()
     }, {

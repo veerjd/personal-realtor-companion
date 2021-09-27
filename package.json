@@ -13,6 +13,7 @@
     "body-parser": "1.19.0",
     "dotenv": "10.0.0",
     "express": "4.17.1",
+    "nodemailer": "6.6.3",
     "pg": "8.7.1",
     "pg-hstore": "2.3.4",
     "realtorca": "1.1.0",

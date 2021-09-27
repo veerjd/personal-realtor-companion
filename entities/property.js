@@ -36,6 +36,21 @@ module.exports = function buildMakeProperty() {
       markSold: () => isSold = true,
       isRejected: () => isRejected,
       markRejected: () => isRejected = true,
+      getAll: () => {
+        return {
+          id,
+          mlsId,
+          city,
+          postalCode,
+          url,
+          landSize,
+          bedrooms,
+          createdAt,
+          modifiedAt,
+          isSold,
+          isRejected,
+        }
+      }
     })
   }
 }
